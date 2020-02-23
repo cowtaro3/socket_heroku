@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="socketio.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello</h1>
+    <button id="sendChat">SEND</button>
+    <div id="output"></div>
+    <script>
+        var socket = io.connect('https://simple-node-deploy.herokuapp.com/')
+        
+        document.querySelector("#sendChat").addEventListener('click', () => {
+            socket.emit('chat', {
+                message: "Hello"
+            })
+        })
+
+        socket.on('chat', data => {
+            console.log(data)
+            document.querySelector("#output").innerHTML += "<p>" + data.message + "</p>"
+        })
+    </script>
+</body>
+</html>
